@@ -1,0 +1,8 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.app</groupId>
+  <artifactId>car_dealership</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>car_dealership</name>
+  <description>The Car Dealership app is a console-based application that facilitates the purchasing of cars.</description>
+</project>

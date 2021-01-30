@@ -5,4 +5,19 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>car_dealership</name>
   <description>The Car Dealership app is a console-based application that facilitates the purchasing of cars.</description>
+  
+  <!-- Setting Java to Version 1.8 -->
+  <properties>
+  	<maven.compiler.target>1.8</maven.compiler.target>
+  	<maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
+  
+  <dependencies>
+  <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+	<dependency>
+    	<groupId>org.postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    	<version>42.2.18</version>
+	</dependency>
+  </dependencies>
 </project>

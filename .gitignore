@@ -1,2 +1,4 @@
-.*
-!.gitignore
+.settings/
+.DS_Store
+.classpath
+.project

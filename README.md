@@ -16,7 +16,6 @@
 5. Log4j is implemented to log events to a file.
 6. A minimum of one (1) JUnit test is written to test some functionality.
 
-
 ## User Stories
 
 * As a user, I can login.

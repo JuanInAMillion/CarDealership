@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+import com.app.menu.CustomerLogin;
 import com.app.model.Customer;
 import com.app.model.Employee;
 
@@ -11,6 +12,7 @@ public class Driver {
 	private static Logger log=Logger.getLogger("consoleLog.Driver");
 	public static void main(String[] args) {
 		
+		CustomerLogin cl = new CustomerLogin();
 		Customer customer = null;
 		Employee employee = null;
 		Scanner sc = new Scanner(System.in);
@@ -32,6 +34,7 @@ public class Driver {
 			switch(ch) {
 			case 1:
 				System.out.println("Login\n");
+				cl.customerLogin(sc,customer);				
 				break;
 			case 2:
 				System.out.println("Register\n");

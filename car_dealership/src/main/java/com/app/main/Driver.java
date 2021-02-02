@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.app.menu.CustomerLogin;
 import com.app.menu.CustomerRegistration;
+import com.app.menu.EmployeeLogin;
 import com.app.model.Customer;
 import com.app.model.Employee;
 
@@ -15,20 +16,21 @@ public class Driver {
 		
 		CustomerLogin cl = new CustomerLogin();
 		CustomerRegistration cr = new CustomerRegistration();
+		EmployeeLogin el = new EmployeeLogin();
 		Customer customer = null;
 		Employee employee = null;
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Welcome to Larusso's Car Dealership");
-		System.out.println("-----------------------");
+		log.info("Welcome to Larusso's Car Dealership");
+		log.info("-----------------------");
 		int ch = 0;
 		do {
-			System.out.println("Choose an Option");
-			System.out.println("=======================");
-			System.out.println("1)Login");
-			System.out.println("2)Register");
-			System.out.println("3)Employee Login");
-			System.out.println("4)EXIT\n");
+			log.info("Choose an Option");
+			log.info("=======================");
+			log.info("1)Login");
+			log.info("2)Register");
+			log.info("3)Employee Login");
+			log.info("4)EXIT\n");
 			try {
 				ch=Integer.parseInt(sc.nextLine());
 			} catch(NumberFormatException e) {}
@@ -41,13 +43,13 @@ public class Driver {
 				cr.customerRegistration(sc,customer);
 				break;
 			case 3:
-				System.out.println("Employee Login\n");
+				el.employeeLogin(sc,employee);
 				break;
 			case 4:
-				System.out.println("Thank You For Visiting Larusso's Car Dealership, have a nice day!\n");
+				log.info("Thank You For Visiting Larusso's Car Dealership, have a nice day!\n");
 				break;
 			default:
-				System.out.println("Invalid Menu Option. Choose from the given Options.\n");
+				log.info("Invalid Menu Option. Choose from the given Options.\n");
 				break;
 			}
 		} while(ch != 4);

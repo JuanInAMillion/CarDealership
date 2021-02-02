@@ -34,6 +34,5 @@ public class CustomerLogin {
 			} catch (BusinessException e) {
 				log.error(e.getMessage());
 			}
-		}
-		
+		}	
 }

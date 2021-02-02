@@ -56,7 +56,7 @@ Customer customer= null;
 			preparedStatement.setString(5, customer.getPassword());
 			c = preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			throw new BusinessException("Internal error occured contact SYSADMIN");
+			throw new BusinessException("Internal error occured contact SYSADMIN\n");
 		}
 		return c;
 	}

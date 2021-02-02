@@ -32,7 +32,7 @@ Customer customer= null;
 				customer.setPassword(resultSet.getString("password"));
 			} 
 			else
-				throw new BusinessException("Try Again. You either entered a wrong email or password");
+				throw new BusinessException("Try Again. You either entered a wrong email or password\n");
 				
 		} catch (ClassNotFoundException e) {
 			

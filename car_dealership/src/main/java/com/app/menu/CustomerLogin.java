@@ -18,18 +18,18 @@ public class CustomerLogin {
 			
 			CustomerDAO login = new CustomerDAOImpl();
 			
-			System.out.println("Enter Your Email: ");
+			log.info("Enter Your Email: ");
 			customeremail = sc.nextLine();
-			System.out.println("Enter Your Password: ");
+			log.info("Enter Your Password: ");
 			customerpassword = sc.nextLine();
 			
 			try {
 				Customer c = login.customerVerifyLogin(customeremail, customerpassword);
-				System.out.println("\nWelcome " +c.getFirst_name()+ " here is your info:");
-				System.out.println("\n"+ c.toString());
+				log.info("Welcome " +c.getFirst_name()+ " here is your info:\n");
+				log.info(c.toString());
 				//customerMenu();
 				if (c!=null) {
-					System.out.println("");
+					log.info("");
 				}
 			} catch (BusinessException e) {
 				log.error(e.getMessage());

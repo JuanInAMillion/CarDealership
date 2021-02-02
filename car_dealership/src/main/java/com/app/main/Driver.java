@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.app.menu.CustomerLogin;
+import com.app.menu.CustomerRegistration;
 import com.app.model.Customer;
 import com.app.model.Employee;
 
@@ -13,6 +14,7 @@ public class Driver {
 	public static void main(String[] args) {
 		
 		CustomerLogin cl = new CustomerLogin();
+		CustomerRegistration cr = new CustomerRegistration();
 		Customer customer = null;
 		Employee employee = null;
 		Scanner sc = new Scanner(System.in);
@@ -21,7 +23,7 @@ public class Driver {
 		System.out.println("-----------------------");
 		int ch = 0;
 		do {
-			System.out.println("Choose an Options");
+			System.out.println("Choose an Option");
 			System.out.println("=======================");
 			System.out.println("1)Login");
 			System.out.println("2)Register");
@@ -33,11 +35,10 @@ public class Driver {
 			
 			switch(ch) {
 			case 1:
-				System.out.println("Login\n");
 				cl.customerLogin(sc,customer);				
 				break;
 			case 2:
-				System.out.println("Register\n");
+				cr.customerRegistration(sc,customer);
 				break;
 			case 3:
 				System.out.println("Employee Login\n");

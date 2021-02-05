@@ -39,7 +39,6 @@ Customer customer= null;
 		} catch (SQLException e) {
 			
 		}
-		
 		return customer;
 	}
 

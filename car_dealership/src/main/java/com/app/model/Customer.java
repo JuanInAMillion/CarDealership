@@ -7,7 +7,7 @@ public class Customer {
 	private long drivers_license;
 	private String email;
 	private String password;
-	
+
 	public Customer() {
 		// TODO Auto-generated constructor stub
 	}
@@ -22,8 +22,9 @@ public class Customer {
 		this.email = email;
 		this.password = password;
 	}
-	
-	//Constructor without customer_id field to create new to record using serial auto increment for customer_id
+
+	// Constructor without customer_id field to create new to record using serial
+	// auto increment for customer_id
 	public Customer(String first_name, String last_name, long drivers_license, String email, String password) {
 		super();
 		this.first_name = first_name;
@@ -82,9 +83,58 @@ public class Customer {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + customer_id;
+		result = prime * result + (int) (drivers_license ^ (drivers_license >>> 32));
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
+		result = prime * result + ((last_name == null) ? 0 : last_name.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		if (customer_id != other.customer_id)
+			return false;
+		if (drivers_license != other.drivers_license)
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (first_name == null) {
+			if (other.first_name != null)
+				return false;
+		} else if (!first_name.equals(other.first_name))
+			return false;
+		if (last_name == null) {
+			if (other.last_name != null)
+				return false;
+		} else if (!last_name.equals(other.last_name))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "Customer [customer_id=" + customer_id + ", first_name=" + first_name + ", last_name=" + last_name
 				+ ", drivers_license=" + drivers_license + ", email=" + email + ", password=" + password + "]";
 	}
-	
+
 }

@@ -9,6 +9,7 @@ public class Customer {
 	private String password;
 
 	public Customer() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -23,8 +24,7 @@ public class Customer {
 		this.password = password;
 	}
 
-	// Constructor without customer_id field to create new to record using serial
-	// auto increment for customer_id
+	// Constructor without card_id to create new record using auto increment
 	public Customer(String first_name, String last_name, long drivers_license, String email, String password) {
 		super();
 		this.first_name = first_name;

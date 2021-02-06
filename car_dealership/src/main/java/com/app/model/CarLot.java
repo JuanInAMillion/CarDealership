@@ -6,7 +6,7 @@ public class CarLot {
 	private String model;
 	private int year;
 	private String color;
-	private String used;
+	private String condition;
 	private double price;
 	private String status;
 
@@ -15,7 +15,7 @@ public class CarLot {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CarLot(int car_id, String make, String model, int year, String color, String used, double price,
+	public CarLot(int car_id, String make, String model, int year, String color, String condition, double price,
 			String status) {
 		super();
 		this.car_id = car_id;
@@ -23,21 +23,20 @@ public class CarLot {
 		this.model = model;
 		this.year = year;
 		this.color = color;
-		this.used = used;
+		this.condition = condition;
 		this.price = price;
 		this.status = status;
 	}
 
 	// Constructor without card_id to create new record using auto increment
-	public CarLot(String make, String model, int year, String color, String used, double price, String status) {
+	public CarLot(String make, String model, int year, String color, String condition, double price) {
 		super();
 		this.make = make;
 		this.model = model;
 		this.year = year;
 		this.color = color;
-		this.used = used;
+		this.condition = condition;
 		this.price = price;
-		this.status = status;
 	}
 
 	public int getCar_id() {
@@ -80,12 +79,12 @@ public class CarLot {
 		this.color = color;
 	}
 
-	public String getUsed() {
-		return used;
+	public String getCondition() {
+		return condition;
 	}
 
-	public void setUsed(String used) {
-		this.used = used;
+	public void setCondition(String condition) {
+		this.condition = condition;
 	}
 
 	public double getPrice() {
@@ -116,7 +115,7 @@ public class CarLot {
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((used == null) ? 0 : used.hashCode());
+		result = prime * result + ((condition == null) ? 0 : condition.hashCode());
 		result = prime * result + year;
 		return result;
 	}
@@ -154,10 +153,10 @@ public class CarLot {
 				return false;
 		} else if (!status.equals(other.status))
 			return false;
-		if (used == null) {
-			if (other.used != null)
+		if (condition == null) {
+			if (other.condition != null)
 				return false;
-		} else if (!used.equals(other.used))
+		} else if (!condition.equals(other.condition))
 			return false;
 		if (year != other.year)
 			return false;
@@ -167,7 +166,7 @@ public class CarLot {
 	@Override
 	public String toString() {
 		return "CarLot [car_id=" + car_id + ", make=" + make + ", model=" + model + ", year=" + year + ", color="
-				+ color + ", used=" + used + ", price=" + price + ", status=" + status + "]";
+				+ color + ", condition=" + condition + ", price=" + price + ", status=" + status + "]";
 	}
 
 }

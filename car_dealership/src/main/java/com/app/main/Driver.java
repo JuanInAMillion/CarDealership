@@ -53,6 +53,6 @@ public class Driver {
 				break;
 			}
 		} while(ch != 4);
-		sc.close();
+		
 	}
 }

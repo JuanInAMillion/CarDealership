@@ -4,5 +4,5 @@ import com.app.exception.BusinessException;
 import com.app.model.Employee;
 
 public interface EmployeeDAO {
-	Employee employeeVerifyLogin(String email, String password) throws BusinessException;
+	public Employee employeeVerifyLogin(String email, String password) throws BusinessException;
 }

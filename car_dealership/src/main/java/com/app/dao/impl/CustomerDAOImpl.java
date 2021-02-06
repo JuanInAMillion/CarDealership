@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.app.dao.CustomerDAO;
 import com.app.dao.dbutil.PostgreSqlConnection;
 import com.app.exception.BusinessException;
 import com.app.model.Customer;
+import com.app.model.CustomerCars;
 
 public class CustomerDAOImpl implements CustomerDAO{
 
@@ -58,6 +60,12 @@ Customer customer= null;
 			throw new BusinessException("Internal error occured contact SYSADMIN\n");
 		}
 		return c;
+	}
+
+	@Override
+	public List<CustomerCars> viewAllCarsIOwn() throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

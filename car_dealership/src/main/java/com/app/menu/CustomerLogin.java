@@ -34,7 +34,7 @@ public class CustomerLogin {
 			try {
 				Customer c = login.customerVerifyLogin(customeremail, customerpassword);
 				log.info("Welcome " +c.getFirst_name()+ " here is your info:\n");
-				log.info(c.toString());
+				log.info(c.toString() + "\n");
 				customerMenu();
 				if (c!=null) {
 					log.info("");

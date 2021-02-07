@@ -6,15 +6,15 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.app.dao.CarDAO;
-import com.app.dao.CustomerDAO;
 import com.app.dao.EmployeeDAO;
+import com.app.dao.OffersDAO;
 import com.app.dao.impl.CarDAOImpl;
-import com.app.dao.impl.CustomerDAOImpl;
 import com.app.dao.impl.EmployeeDAOImpl;
+import com.app.dao.impl.OffersDAOImpl;
 import com.app.exception.BusinessException;
 import com.app.model.CarLot;
-import com.app.model.Customer;
 import com.app.model.Employee;
+import com.app.model.Offers;
 
 public class EmployeeLogin {
 	private static Logger log=Logger.getLogger("consoleLog.EmployeeLogin");
@@ -45,7 +45,8 @@ public class EmployeeLogin {
 		
 		//Employee menu after Login
 		public static void employeeMenu() {
-			CarDAO dao = new CarDAOImpl();
+			CarDAO cardao = new CarDAOImpl();
+			OffersDAO offerdao = new OffersDAOImpl();
 			Scanner sc = new Scanner(System.in);
 			int ch = 0;
 			do {
@@ -66,7 +67,7 @@ public class EmployeeLogin {
 				case 1: 
 					// view all cars in the lot 
 					try {
-						List<CarLot> carList = dao.viewAllCarsInLot();
+						List<CarLot> carList = cardao.viewAllCarsInLot();
 						if(carList!=null && carList.size()!=0) {
 							log.info("\n\nFound " + carList.size() + " cars in the CarLot....");
 							for(CarLot cl: carList) {
@@ -82,8 +83,6 @@ public class EmployeeLogin {
 					String make, model, color, condition;
 					int year;
 					double price;
-
-					CarDAO addcar = new CarDAOImpl();
 			
 					log.info("Enter The Car\'s Make: ");
 					make = sc.nextLine();
@@ -100,7 +99,7 @@ public class EmployeeLogin {
 
 					CarLot c = new CarLot(make, model, year, color, condition,price);	
 					try {
-						if(addcar.addCarToLot(c)!=0) {
+						if(cardao.addCarToLot(c)!=0) {
 					log.info("Car Added Successfully. Check Out The Car Lot\n");
 					}
 					} catch(BusinessException e) {
@@ -115,14 +114,25 @@ public class EmployeeLogin {
 					car_id = Integer.parseInt(sc.nextLine());
 					 
 					try {
-						dao.removeCarFromLot(car_id);
+						cardao.removeCarFromLot(car_id);
 						System.out.println("The Car Was Removed Successfully");
 					} catch (BusinessException e) {
 						System.out.println(e.getMessage());
 					}
 					break;
 				case 4:
-					System.out.println("View All Pending Offers - Under Construction");
+					// view all cars in the lot 
+					try {
+						List<Offers> offerList = offerdao.viewAllOffers();
+						if(offerList!=null && offerList.size()!=0) {
+							log.info("\n\nFound " + offerList.size() + " pending offers....");
+							for(Offers ol: offerList) {
+								log.info(ol+"\n");
+							}
+						}
+					} catch (BusinessException e) {
+						log.error(e.getMessage());
+					} 
 					break;
 				case 5:
 					System.out.println("Approve or Reject Offer - Under Construction");
@@ -138,7 +148,7 @@ public class EmployeeLogin {
 					carStatus = sc.nextLine();
 					
 					try {
-						dao.updateCarStatus(carIdNum, carStatus);
+						cardao.updateCarStatus(carIdNum, carStatus);
 						log.info("Car\'s Status Changed");
 					} catch (BusinessException e) {
 						log.error(e.getMessage());

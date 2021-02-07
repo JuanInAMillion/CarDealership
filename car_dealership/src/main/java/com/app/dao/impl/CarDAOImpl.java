@@ -18,7 +18,7 @@ public class CarDAOImpl implements CarDAO {
 	public List<CarLot> viewAllCarsInLot() throws BusinessException {
 		List<CarLot> carList = new ArrayList<>();
 		try (Connection connection = PostgreSqlConnection.getConnection()) {
-			String sql = "select * from dealership.carlot";
+			String sql = "select * from dealership.carlot order by car_id";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {

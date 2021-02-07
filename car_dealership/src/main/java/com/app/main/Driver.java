@@ -46,10 +46,10 @@ public class Driver {
 				el.employeeLogin(sc,employee);
 				break;
 			case 4:
-				log.info("Thank You For Visiting Larusso's Car Dealership, have a nice day!\n");
+				log.info("Thank you for fisiting Larusso's Car Dealership, have a nice day!\n");
 				break;
 			default:
-				log.info("Invalid Menu Option. Choose from the given Options.\n");
+				log.info("Invalid menu option. Choose from the given Options.\n");
 				break;
 			}
 		} while(ch != 4);

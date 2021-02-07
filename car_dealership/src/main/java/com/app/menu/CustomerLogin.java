@@ -76,6 +76,7 @@ public class CustomerLogin {
 							} 
 							break;
 						case 2:
+							// make an offer on a car
 							Date date;
 							int customer_id, car_id;
 							double offer_price;
@@ -100,10 +101,10 @@ public class CustomerLogin {
 							}
 							break;
 						case 3:
-							System.out.println("Under Construction");
+							System.out.println("View All My Cars - Under Construction");
 							break;
 						case 4:
-							System.out.println("Under Construction");
+							System.out.println("View My Remaining Payments - Under Construction");
 							break;
 						case 5:
 							log.info("\nThank You For Completing your task, have a nice day!\n");

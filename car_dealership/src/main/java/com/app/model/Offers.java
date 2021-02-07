@@ -8,19 +8,21 @@ public class Offers {
 	private int customer_id;
 	private int car_id;
 	private double offer_price;
+	private String pending_offer;
 
 	public Offers() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Offers(int offer_id, Date date, int customer_id, int car_id, double offer_price) {
+	public Offers(int offer_id, Date date, int customer_id, int car_id, double offer_price, String pending_offer) {
 		super();
 		this.offer_id = offer_id;
 		this.date = date;
 		this.customer_id = customer_id;
 		this.car_id = car_id;
 		this.offer_price = offer_price;
+		this.pending_offer = pending_offer;
 	}
 
 	// Constructor without bid_id to create new record using auto increment
@@ -72,6 +74,14 @@ public class Offers {
 		this.offer_price = offer_price;
 	}
 
+	public String getPending_offer() {
+		return pending_offer;
+	}
+
+	public void setPending_offer(String pending_offer) {
+		this.pending_offer = pending_offer;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,6 +93,7 @@ public class Offers {
 		long temp;
 		temp = Double.doubleToLongBits(offer_price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((pending_offer == null) ? 0 : pending_offer.hashCode());
 		return result;
 	}
 
@@ -108,13 +119,18 @@ public class Offers {
 			return false;
 		if (Double.doubleToLongBits(offer_price) != Double.doubleToLongBits(other.offer_price))
 			return false;
+		if (pending_offer == null) {
+			if (other.pending_offer != null)
+				return false;
+		} else if (!pending_offer.equals(other.pending_offer))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Offers [offer_id=" + offer_id + ", date=" + date + ", customer_id=" + customer_id + ", car_id=" + car_id
-				+ ", offer_price=" + offer_price + "]";
+				+ ", offer_price=" + offer_price + ", pending_offer=" + pending_offer + "]";
 	}
 
 }

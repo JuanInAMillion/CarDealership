@@ -50,12 +50,12 @@ public class EmployeeLogin {
 			int ch = 0;
 			do {
 				log.info("=======================");
-				log.info("1)Add A Car To The Lot");
-				log.info("2)View All Cars In The Lot");
-				log.info("3)View All Pending Offers");
-				log.info("4)Approve or Reject Offer");
-				log.info("5)Update Car Status");
-				log.info("6)Remove Car from Lot");
+				log.info("1)View All Cars In The Lot");
+				log.info("2)Add A Car To The Lot");
+				log.info("3)Remove Car from Lot");
+				log.info("4)View All Pending Offers");
+				log.info("5)Approve or Reject Offer");
+				log.info("6)Update Car Status");
 				log.info("7)View All Payments");
 				log.info("8)EXIT\n");
 				try {
@@ -64,37 +64,7 @@ public class EmployeeLogin {
 				
 				switch(ch) {
 				case 1: 
-					// Add A Car To The Lot	
-						String make, model, color, condition;
-						int year;
-						double price;
-
-						CarDAO addcar = new CarDAOImpl();
-				
-						log.info("Enter The Car\'s Make: ");
-						make = sc.nextLine();
-						log.info("Enter The Car\'s Model: ");
-						model = sc.nextLine();
-						log.info("Enter The Car\'s Year: ");
-						year = Integer.parseInt(sc.nextLine());
-						log.info("Enter The Car\'s Color: ");
-						color = sc.nextLine();
-						log.info("Enter The Car\'s Condition: ");
-						condition = sc.nextLine();
-						log.info("Enter The Car\'s Price: ");
-						price = Double.parseDouble(sc.nextLine());
-
-						CarLot c = new CarLot(make, model, year, color, condition,price);	
-						try {
-							if(addcar.addCarToLot(c)!=0) {
-						log.info("Car Added Successfully. Check Out The Car Lot\n");
-						}
-						} catch(BusinessException e) {
-							log.error(e.getMessage());
-						}
-					break;
-				case 2:
-			  		// view all cars in the lot 
+					// view all cars in the lot 
 					try {
 						List<CarLot> carList = dao.viewAllCarsInLot();
 						if(carList!=null && carList.size()!=0) {
@@ -107,20 +77,75 @@ public class EmployeeLogin {
 						log.error(e.getMessage());
 					} 
 					break;
+				case 2:
+					// add a car to the lot	
+					String make, model, color, condition;
+					int year;
+					double price;
+
+					CarDAO addcar = new CarDAOImpl();
+			
+					log.info("Enter The Car\'s Make: ");
+					make = sc.nextLine();
+					log.info("Enter The Car\'s Model: ");
+					model = sc.nextLine();
+					log.info("Enter The Car\'s Year: ");
+					year = Integer.parseInt(sc.nextLine());
+					log.info("Enter The Car\'s Color: ");
+					color = sc.nextLine();
+					log.info("Enter The Car\'s Condition: ");
+					condition = sc.nextLine();
+					log.info("Enter The Car\'s Price: ");
+					price = Double.parseDouble(sc.nextLine());
+
+					CarLot c = new CarLot(make, model, year, color, condition,price);	
+					try {
+						if(addcar.addCarToLot(c)!=0) {
+					log.info("Car Added Successfully. Check Out The Car Lot\n");
+					}
+					} catch(BusinessException e) {
+						log.error(e.getMessage());
+					}
+					break;
 				case 3:
-					System.out.println("Under Construction");
+					//remove a car from carlot by car_id
+					int car_id;
+					
+					log.info("Enter The Car\'s ID Number: ");
+					car_id = Integer.parseInt(sc.nextLine());
+					 
+					try {
+						dao.removeCarFromLot(car_id);
+						System.out.println("The Car Was Removed Successfully");
+					} catch (BusinessException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 4:
-					System.out.println("Under Construction");
+					System.out.println("View All Pending Offers - Under Construction");
 					break;
 				case 5:
-					System.out.println("Under Construction");
+					System.out.println("Approve or Reject Offer - Under Construction");
 					break;
-				case 6:
-					System.out.println("Under Construction");
+				case 6:	
+					//update car status
+					int carIdNum;	
+					String carStatus;
+						
+					log.info("Enter The Car Id Number: ");
+					carIdNum = Integer.parseInt(sc.nextLine());
+					log.info("type: Available or Unavailable");
+					carStatus = sc.nextLine();
+					
+					try {
+						dao.updateCarStatus(carIdNum, carStatus);
+						log.info("Car\'s Status Changed");
+					} catch (BusinessException e) {
+						log.error(e.getMessage());
+					}
 					break;
 				case 7:
-					System.out.println("Under Construction");
+					System.out.println("View All Payments - Under Construction");
 					break;
 				case 8:
 					log.info("\nThank You For Completing your task, have a nice day!\n");

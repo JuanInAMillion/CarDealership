@@ -12,13 +12,42 @@ import com.app.dao.dbutil.PostgreSqlConnection;
 import com.app.exception.BusinessException;
 import com.app.model.CarLot;
 
-public class CarDAOImpl implements CarDAO{
+public class CarDAOImpl implements CarDAO {
+
+	@Override
+	public List<CarLot> viewAllCarsInLot() throws BusinessException {
+		List<CarLot> carList = new ArrayList<>();
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "select * from dealership.carlot";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				CarLot carlot = new CarLot();
+				carlot.setCar_id(resultSet.getInt("car_id"));
+				carlot.setMake(resultSet.getString("make"));
+				carlot.setModel(resultSet.getString("model"));
+				carlot.setYear(resultSet.getInt("year"));
+				carlot.setColor(resultSet.getString("color"));
+				carlot.setCondition(resultSet.getString("condition"));
+				carlot.setPrice(resultSet.getDouble("price"));
+				carlot.setStatus(resultSet.getString("status"));
+				carList.add(carlot);
+			}
+			if (carList.size() == 0) {
+				throw new BusinessException("No Car in the CarLot so far");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println(e);
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		return carList;
+	}
 
 	@Override
 	public int addCarToLot(CarLot carlot) throws BusinessException {
 		int c = 0;
-		try (Connection connection = PostgreSqlConnection.getConnection()){	
-			String sql = "insert into dealership.carlot(make, model, year, color, condition, price) VALUES(?, ?, ?, ?, ?, ?)";	
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "insert into dealership.carlot(make, model, year, color, condition, price) VALUES(?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, carlot.getMake());
 			preparedStatement.setString(2, carlot.getModel());
@@ -35,44 +64,31 @@ public class CarDAOImpl implements CarDAO{
 
 	@Override
 	public void removeCarFromLot(int car_id) throws BusinessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<CarLot> viewAllCarsInLot() throws BusinessException {
-		List<CarLot> customerList=new ArrayList<>();
+		int r = 0;
 		try (Connection connection = PostgreSqlConnection.getConnection()) {
-			String sql = "select * from dealership.carlot";
-			PreparedStatement preparedStatement=connection.prepareStatement(sql); 
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()) {
-				CarLot carlot = new CarLot();
-				carlot.setCar_id(resultSet.getInt("car_id"));
-				carlot.setMake(resultSet.getString("make"));
-				carlot.setModel(resultSet.getString("model"));
-				carlot.setYear(resultSet.getInt("year"));
-				carlot.setColor(resultSet.getString("color"));
-				carlot.setCondition(resultSet.getString("condition"));
-				carlot.setPrice(resultSet.getDouble("price"));
-				carlot.setStatus(resultSet.getString("status"));
-				customerList.add(carlot);
-			} 
-			if(customerList.size() == 0)
-			{
-				throw new BusinessException("No Car in the CarLot so far");
-			}
+			String sql = "delete from dealership.carlot where car_id=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, car_id);
+			r = preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e);
 			throw new BusinessException("Internal error occured contact SYSADMIN");
-		}		
-		return customerList  ;
+		}
 	}
 
 	@Override
 	public int updateCarStatus(int car_id, String statusChange) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+		int s = 0;
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "update dealership.carlot set status=? where car_id=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, statusChange);
+			preparedStatement.setInt(2, car_id);
+			s = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		return s;
 	}
 
 }

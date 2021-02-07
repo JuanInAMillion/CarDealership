@@ -73,7 +73,7 @@ public class EmployeeLogin {
 				
 						log.info("Enter The Car\'s Make: ");
 						make = sc.nextLine();
-						log.info("Enter The car\'s Model: ");
+						log.info("Enter The Car\'s Model: ");
 						model = sc.nextLine();
 						log.info("Enter The Car\'s Year: ");
 						year = Integer.parseInt(sc.nextLine());
@@ -100,7 +100,7 @@ public class EmployeeLogin {
 						if(carList!=null && carList.size()!=0) {
 							log.info("\n\nFound " + carList.size() + " cars in the CarLot....");
 							for(CarLot cl: carList) {
-								log.info(cl);
+								log.info(cl+"\n");
 							}
 						}
 					} catch (BusinessException e) {

@@ -6,7 +6,7 @@ import com.app.exception.BusinessException;
 import com.app.model.Offers;
 
 public interface OffersDAO {
-	public int placeBidOnCar(Offers bids) throws BusinessException;
-	public List<Offers> viewAllBids() throws BusinessException;
-	public int acceptOrRejectBid(int bid_id, String statusChange) throws BusinessException;
+	public int makeOfferOnCar(Offers offers) throws BusinessException;
+	public List<Offers> viewAllOffers() throws BusinessException;
+	public int acceptOrRejectOffer(int offer_id, String statusChange) throws BusinessException;
 }

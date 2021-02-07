@@ -1,35 +1,35 @@
 package com.app.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Offers {
 	private int offer_id;
-	private Date offer_date;
+	private Date date;
 	private int customer_id;
-	private double offer_price;
 	private int car_id;
+	private double offer_price;
 
 	public Offers() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Offers(int offer_id, Date offer_date, int customer_id, double offer_price, int car_id) {
+	public Offers(int offer_id, Date date, int customer_id, int car_id, double offer_price) {
 		super();
 		this.offer_id = offer_id;
-		this.offer_date = offer_date;
+		this.date = date;
 		this.customer_id = customer_id;
-		this.offer_price = offer_price;
 		this.car_id = car_id;
+		this.offer_price = offer_price;
 	}
 
 	// Constructor without bid_id to create new record using auto increment
-	public Offers(Date offer_date, int customer_id, double offer_price, int car_id) {
+	public Offers(Date date, int customer_id, int car_id, double offer_price) {
 		super();
-		this.offer_date = offer_date;
+		this.date = date;
 		this.customer_id = customer_id;
-		this.offer_price = offer_price;
 		this.car_id = car_id;
+		this.offer_price = offer_price;
 	}
 
 	public int getOffer_id() {
@@ -40,12 +40,12 @@ public class Offers {
 		this.offer_id = offer_id;
 	}
 
-	public Date getOffer_date() {
-		return offer_date;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setOffer_date(Date offer_date) {
-		this.offer_date = offer_date;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public int getCustomer_id() {
@@ -56,14 +56,6 @@ public class Offers {
 		this.customer_id = customer_id;
 	}
 
-	public double getOffer_price() {
-		return offer_price;
-	}
-
-	public void setOffer_price(double offer_price) {
-		this.offer_price = offer_price;
-	}
-
 	public int getCar_id() {
 		return car_id;
 	}
@@ -72,13 +64,21 @@ public class Offers {
 		this.car_id = car_id;
 	}
 
+	public double getOffer_price() {
+		return offer_price;
+	}
+
+	public void setOffer_price(double offer_price) {
+		this.offer_price = offer_price;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + car_id;
 		result = prime * result + customer_id;
-		result = prime * result + ((offer_date == null) ? 0 : offer_date.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + offer_id;
 		long temp;
 		temp = Double.doubleToLongBits(offer_price);
@@ -99,10 +99,10 @@ public class Offers {
 			return false;
 		if (customer_id != other.customer_id)
 			return false;
-		if (offer_date == null) {
-			if (other.offer_date != null)
+		if (date == null) {
+			if (other.date != null)
 				return false;
-		} else if (!offer_date.equals(other.offer_date))
+		} else if (!date.equals(other.date))
 			return false;
 		if (offer_id != other.offer_id)
 			return false;
@@ -113,8 +113,8 @@ public class Offers {
 
 	@Override
 	public String toString() {
-		return "Offers [offer_id=" + offer_id + ", offer_date=" + offer_date + ", customer_id=" + customer_id
-				+ ", offer_price=" + offer_price + ", car_id=" + car_id + "]";
+		return "Offers [offer_id=" + offer_id + ", date=" + date + ", customer_id=" + customer_id + ", car_id=" + car_id
+				+ ", offer_price=" + offer_price + "]";
 	}
 
 }

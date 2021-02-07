@@ -1,5 +1,6 @@
 package com.app.menu;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,11 +8,14 @@ import org.apache.log4j.Logger;
 
 import com.app.dao.CarDAO;
 import com.app.dao.CustomerDAO;
+import com.app.dao.OffersDAO;
 import com.app.dao.impl.CarDAOImpl;
 import com.app.dao.impl.CustomerDAOImpl;
+import com.app.dao.impl.OffersDAOImpl;
 import com.app.exception.BusinessException;
 import com.app.model.CarLot;
 import com.app.model.Customer;
+import com.app.model.Offers;
 
 public class CustomerLogin {
 	private static Logger log=Logger.getLogger("consoleLog.CustomerLogin");
@@ -64,7 +68,7 @@ public class CustomerLogin {
 								if(carList!=null && carList.size()!=0) {
 									log.info("\n\nFound " + carList.size() + " cars in the CarLot....");
 									for(CarLot cl: carList) {
-										log.info(cl);
+										log.info(cl+"\n");
 									}
 								}
 							} catch (BusinessException e) {
@@ -72,7 +76,28 @@ public class CustomerLogin {
 							} 
 							break;
 						case 2:
-					  		System.out.println("Under Construction");
+							Date date;
+							int customer_id, car_id;
+							double offer_price;
+							
+							OffersDAO makeoffer = new OffersDAOImpl();
+							
+							date = new Date();
+							log.info("Enter Your Customer ID: ");
+							customer_id = Integer.parseInt(sc.nextLine());
+							log.info("Enter The Car ID For The Car You Want: ");
+							car_id = Integer.parseInt(sc.nextLine());
+							log.info("Place An Offer On That Car: ");
+							offer_price = Double.parseDouble(sc.nextLine());
+							
+							Offers o = new Offers(date, customer_id, car_id, offer_price);	
+							try {
+								if(makeoffer.makeOfferOnCar(o)!=0) {
+									log.info("You\'re offer of " + offer_price +" has been placed\n");
+								}
+							} catch(BusinessException e) {
+								log.error(e.getMessage());
+							}
 							break;
 						case 3:
 							System.out.println("Under Construction");

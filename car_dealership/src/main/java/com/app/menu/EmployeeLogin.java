@@ -55,8 +55,8 @@ public class EmployeeLogin {
 				log.info("2)Add A Car To The Lot");
 				log.info("3)Remove Car from Lot");
 				log.info("4)View All Pending Offers");
-				log.info("5)Approve or Reject Offer");
-				log.info("6)Update Car Status");
+				log.info("5)Accept or Reject Offer");
+				log.info("6)Update Car Status In The Lot");
 				log.info("7)View All Payments");
 				log.info("8)EXIT\n");
 				try {
@@ -135,7 +135,20 @@ public class EmployeeLogin {
 					} 
 					break;
 				case 5:
-					System.out.println("Approve or Reject Offer - Under Construction");
+					// Reject pending offers
+					int rejectedCarId;	
+					String pendingStatus;
+						
+					log.info("Enter The Car Id Number: ");
+					rejectedCarId = Integer.parseInt(sc.nextLine());
+					pendingStatus = "Rejected";
+					
+					try {
+						offerdao.rejectOffer(rejectedCarId, pendingStatus);
+						log.info("Succesffuly Rejected All Offers for Car with ID: " + rejectedCarId + "\n");
+					} catch (BusinessException e) {
+						log.error(e.getMessage());
+					}
 					break;
 				case 6:	
 					//update car status

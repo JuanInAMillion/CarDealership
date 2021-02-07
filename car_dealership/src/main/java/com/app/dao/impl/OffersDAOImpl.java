@@ -57,11 +57,35 @@ public class OffersDAOImpl implements OffersDAO{
 		}
 		return offerList;
 	}
+	
+	@Override
+	public int acceptOffer(int offer_id, String pendingStatus) throws BusinessException {
+		int s = 0;
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "update dealership.offers set pending_offer=? where offer_id=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, pendingStatus);
+			preparedStatement.setInt(2, offer_id);
+			s = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		return s;
+	}
 
 	@Override
-	public int acceptOrRejectOffer(int offer_id, String statusChange) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int rejectOffer(int car_id, String pendingStatus) throws BusinessException {
+		int s = 0;
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "update dealership.offers set pending_offer=? where car_id=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, pendingStatus);
+			preparedStatement.setInt(2, car_id);
+			s = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		return s;
 	}
 
 }

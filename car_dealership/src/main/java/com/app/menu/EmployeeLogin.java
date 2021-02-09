@@ -136,21 +136,26 @@ public class EmployeeLogin {
 					break;
 				case 5:
 					int acceptedOfferId, rejectedOfferId, CarId;
-					String rejectedOffer, acceptedOffer, carStatus;
+					String rejectedOffer, acceptedOffer, carStatus, carOwner;
 					
 					//Accept Or reject Offer
 					log.info("Enter The Offer Id Number: ");
 					acceptedOfferId = Integer.parseInt(sc.nextLine());
 					log.info("Enter The Car Id Number: ");
 					CarId = Integer.parseInt(sc.nextLine());
+					log.info("Enter The New Owners ID number: ");
+					carOwner = sc.nextLine();
+					
 					rejectedOffer = "Rejected";
 					acceptedOffer = "Accepted";
 					carStatus = "Unavailable";
+					
 						
 					 try {
 						offerdao.rejectOffer(CarId, rejectedOffer); // Rejects all offers for 
 						offerdao.acceptOffer(acceptedOfferId, acceptedOffer); //Accepts Offer
 						cardao.updateCarStatus(CarId, carStatus); // Changes availability of the card in the lot
+						cardao.updateCarOwner(CarId, carOwner); // Changes a car's ownership
 						log.info("Accepted an offer for car ID:" + CarId + " from offer " + acceptedOfferId + "\n");
 					} catch (BusinessException e) {
 						log.error(e.getMessage());

@@ -10,4 +10,5 @@ public interface CarDAO {
 	public int addCarToLot(CarLot carlot) throws BusinessException;
 	public void removeCarFromLot(int car_id) throws BusinessException;
 	public int updateCarStatus(int car_id, String statusChange) throws BusinessException;
+	public int updateCarOwner(int car_id, String ownerChange) throws BusinessException;
 }

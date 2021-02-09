@@ -7,14 +7,17 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.app.dao.CarDAO;
+import com.app.dao.CustomerCarDAO;
 import com.app.dao.CustomerDAO;
 import com.app.dao.OffersDAO;
 import com.app.dao.impl.CarDAOImpl;
+import com.app.dao.impl.CustomerCarDAOImpl;
 import com.app.dao.impl.CustomerDAOImpl;
 import com.app.dao.impl.OffersDAOImpl;
 import com.app.exception.BusinessException;
 import com.app.model.CarLot;
 import com.app.model.Customer;
+import com.app.model.CustomerCars;
 import com.app.model.Offers;
 
 public class CustomerLogin {
@@ -47,6 +50,7 @@ public class CustomerLogin {
 		//Customer menu after Login
 				public static void customerMenu() {
 					CarDAO dao = new CarDAOImpl();
+					CustomerCarDAO mydao = new CustomerCarDAOImpl();
 					Scanner sc = new Scanner(System.in);
 					int ch = 0;
 					do {
@@ -101,10 +105,21 @@ public class CustomerLogin {
 							}
 							break;
 						case 3:
-							System.out.println("View All My Cars - Under Construction");
+							// view all cars I own
+							try {
+								List<CustomerCars> myCarList = mydao.viewMyCars();
+								if(myCarList!=null && myCarList.size()!=0) {
+									log.info("\n\nFound " + myCarList.size() + " cars in the CarLot....");
+									for(CustomerCars mcl: myCarList) {
+										log.info(mcl+"\n");
+									}
+								}
+							} catch (BusinessException e) {
+								log.error(e.getMessage());
+							} 
 							break;
 						case 4:
-							System.out.println("View My Remaining Payments - Under Construction");
+							System.out.println("Make a Payment - Under Construction");
 							break;
 						case 5:
 							log.info("\nThank You For Completing your task, have a nice day!\n");

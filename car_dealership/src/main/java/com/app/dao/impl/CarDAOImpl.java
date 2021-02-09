@@ -18,7 +18,7 @@ public class CarDAOImpl implements CarDAO {
 	public List<CarLot> viewAllCarsInLot() throws BusinessException {
 		List<CarLot> carList = new ArrayList<>();
 		try (Connection connection = PostgreSqlConnection.getConnection()) {
-			String sql = "select * from dealership.carlot order by car_id";
+			String sql = "select * from dealership.carlot where status='Available' order by car_id";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -31,6 +31,7 @@ public class CarDAOImpl implements CarDAO {
 				carlot.setCondition(resultSet.getString("condition"));
 				carlot.setPrice(resultSet.getDouble("price"));
 				carlot.setStatus(resultSet.getString("status"));
+				carlot.setOwner(resultSet.getString("owner"));
 				carList.add(carlot);
 			}
 			if (carList.size() == 0) {
@@ -89,6 +90,21 @@ public class CarDAOImpl implements CarDAO {
 			throw new BusinessException("Internal error occured contact SYSADMIN");
 		}
 		return s;
+	}
+
+	@Override
+	public int updateCarOwner(int car_id, String ownerChange) throws BusinessException {
+		int o = 0;
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "update dealership.carlot set owner=? where car_id=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, ownerChange);
+			preparedStatement.setInt(2, car_id);
+			o = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		return o;
 	}
 
 }

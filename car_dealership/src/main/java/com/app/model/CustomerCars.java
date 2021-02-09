@@ -1,6 +1,6 @@
 package com.app.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class CustomerCars {
 	private int car_id;
@@ -10,6 +10,7 @@ public class CustomerCars {
 	private String model;
 	private int year;
 	private String color;
+	private double payments_left;
 
 	public CustomerCars() {
 		super();
@@ -17,7 +18,7 @@ public class CustomerCars {
 	}
 
 	public CustomerCars(int car_id, int customer_id, Date date_purchased, String make, String model, int year,
-			String color) {
+			String color, double payments_left) {
 		super();
 		this.car_id = car_id;
 		this.customer_id = customer_id;
@@ -26,6 +27,7 @@ public class CustomerCars {
 		this.model = model;
 		this.year = year;
 		this.color = color;
+		this.payments_left = payments_left;
 	}
 
 	public int getCar_id() {
@@ -84,6 +86,14 @@ public class CustomerCars {
 		this.color = color;
 	}
 
+	public double getPayments_left() {
+		return payments_left;
+	}
+
+	public void setPayments_left(double payments_left) {
+		this.payments_left = payments_left;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -94,6 +104,9 @@ public class CustomerCars {
 		result = prime * result + ((date_purchased == null) ? 0 : date_purchased.hashCode());
 		result = prime * result + ((make == null) ? 0 : make.hashCode());
 		result = prime * result + ((model == null) ? 0 : model.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(payments_left);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + year;
 		return result;
 	}
@@ -131,6 +144,8 @@ public class CustomerCars {
 				return false;
 		} else if (!model.equals(other.model))
 			return false;
+		if (Double.doubleToLongBits(payments_left) != Double.doubleToLongBits(other.payments_left))
+			return false;
 		if (year != other.year)
 			return false;
 		return true;
@@ -139,7 +154,8 @@ public class CustomerCars {
 	@Override
 	public String toString() {
 		return "CustomerCars [car_id=" + car_id + ", customer_id=" + customer_id + ", date_purchased=" + date_purchased
-				+ ", make=" + make + ", model=" + model + ", year=" + year + ", color=" + color + "]";
+				+ ", make=" + make + ", model=" + model + ", year=" + year + ", color=" + color + ", payments_left="
+				+ payments_left + "]";
 	}
 
 }

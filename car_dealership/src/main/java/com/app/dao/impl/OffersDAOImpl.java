@@ -59,12 +59,12 @@ public class OffersDAOImpl implements OffersDAO{
 	}
 	
 	@Override
-	public int acceptOffer(int offer_id, String pendingStatus) throws BusinessException {
+	public int acceptOffer(int offer_id, String acceptedOffer) throws BusinessException {
 		int s = 0;
 		try (Connection connection = PostgreSqlConnection.getConnection()) {
 			String sql = "update dealership.offers set pending_offer=? where offer_id=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, pendingStatus);
+			preparedStatement.setString(1, acceptedOffer);
 			preparedStatement.setInt(2, offer_id);
 			s = preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
@@ -74,12 +74,12 @@ public class OffersDAOImpl implements OffersDAO{
 	}
 
 	@Override
-	public int rejectOffer(int car_id, String pendingStatus) throws BusinessException {
+	public int rejectOffer(int car_id, String rejectedOffer) throws BusinessException {
 		int s = 0;
 		try (Connection connection = PostgreSqlConnection.getConnection()) {
 			String sql = "update dealership.offers set pending_offer=? where car_id=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, pendingStatus);
+			preparedStatement.setString(1, rejectedOffer);
 			preparedStatement.setInt(2, car_id);
 			s = preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {

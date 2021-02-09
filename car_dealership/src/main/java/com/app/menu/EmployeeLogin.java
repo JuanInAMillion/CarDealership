@@ -55,8 +55,8 @@ public class EmployeeLogin {
 				log.info("2)Add A Car To The Lot");
 				log.info("3)Remove Car from Lot");
 				log.info("4)View All Pending Offers");
-				log.info("5)Accept or Reject Offer");
-				log.info("6)Update Car Status In The Lot");
+				log.info("5)Accept An Offer");
+				log.info("6)Remove All Rejected Offers");
 				log.info("7)View All Payments");
 				log.info("8)EXIT\n");
 				try {
@@ -107,7 +107,7 @@ public class EmployeeLogin {
 					}
 					break;
 				case 3:
-					//remove a car from carlot by car_id
+					//remove a car from the lot by car_id
 					int car_id;
 					
 					log.info("Enter The Car\'s ID Number: ");
@@ -121,7 +121,7 @@ public class EmployeeLogin {
 					}
 					break;
 				case 4:
-					// view all cars in the lot 
+					// view all pending offers 
 					try {
 						List<Offers> offerList = offerdao.viewAllOffers();
 						if(offerList!=null && offerList.size()!=0) {
@@ -135,37 +135,31 @@ public class EmployeeLogin {
 					} 
 					break;
 				case 5:
-					// Reject pending offers
-					int rejectedCarId;	
-					String pendingStatus;
-						
-					log.info("Enter The Car Id Number: ");
-					rejectedCarId = Integer.parseInt(sc.nextLine());
-					pendingStatus = "Rejected";
+					int acceptedOfferId, rejectedOfferId, CarId;
+					String rejectedOffer, acceptedOffer, carStatus;
 					
-					try {
-						offerdao.rejectOffer(rejectedCarId, pendingStatus);
-						log.info("Succesffuly Rejected All Offers for Car with ID: " + rejectedCarId + "\n");
+					//Accept Or reject Offer
+					log.info("Enter The Offer Id Number: ");
+					acceptedOfferId = Integer.parseInt(sc.nextLine());
+					log.info("Enter The Car Id Number: ");
+					CarId = Integer.parseInt(sc.nextLine());
+					rejectedOffer = "Rejected";
+					acceptedOffer = "Accepted";
+					carStatus = "Unavailable";
+						
+					 try {
+						offerdao.rejectOffer(CarId, rejectedOffer); // Rejects all offers for 
+						offerdao.acceptOffer(acceptedOfferId, acceptedOffer); //Accepts Offer
+						cardao.updateCarStatus(CarId, carStatus); // Changes availability of the card in the lot
+						log.info("Accepted an offer for car ID:" + CarId + " from offer " + acceptedOfferId + "\n");
 					} catch (BusinessException e) {
 						log.error(e.getMessage());
 					}
+					
 					break;
 				case 6:	
 					//update car status
-					int carIdNum;	
-					String carStatus;
-						
-					log.info("Enter The Car Id Number: ");
-					carIdNum = Integer.parseInt(sc.nextLine());
-					log.info("type: Available or Unavailable");
-					carStatus = sc.nextLine();
-					
-					try {
-						cardao.updateCarStatus(carIdNum, carStatus);
-						log.info("Car\'s Status Changed");
-					} catch (BusinessException e) {
-						log.error(e.getMessage());
-					}
+					System.out.println("Delete all Rejected Offers");
 					break;
 				case 7:
 					System.out.println("View All Payments - Under Construction");

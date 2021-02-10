@@ -123,7 +123,7 @@ public class CarDAOImpl implements CarDAO {
 	}
 	
 	@Override
-	public List<CarLot> getMyCars(String owner) throws BusinessException {
+	public List<CarLot> viewMyCars(String owner) throws BusinessException {
 		List<CarLot> myCarList = new ArrayList<>();
 		try (Connection connection = PostgreSqlConnection.getConnection()) {
 			String sql = "select car_id, make, model, year, color, price from dealership.carlot where owner=?";

@@ -46,7 +46,7 @@ public class Driver {
 				el.employeeLogin(sc,employee);
 				break;
 			case 4:
-				log.info("Thank you for fisiting Larusso's Car Dealership, have a nice day!\n");
+				log.info("Thank you for Visiting Larusso's Car Dealership, have a nice day!\n");
 				break;
 			
 			}

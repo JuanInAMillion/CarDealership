@@ -12,5 +12,5 @@ public interface CarDAO {
 	public int updateCarStatus(int car_id, String statusChange) throws BusinessException;
 	public int updateCarOwner(int car_id, String ownerChange) throws BusinessException;
 	public int updateCarPrice(int car_id, double newPrice) throws BusinessException;
-	public List<CarLot> getMyCars(String owner) throws BusinessException;
+	public List<CarLot> viewMyCars(String owner) throws BusinessException;
 }

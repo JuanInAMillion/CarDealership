@@ -74,7 +74,7 @@ public class EmployeeLogin {
 						for (CarLot cl : carList) {
 							log.info("Car ID#: " + cl.getCar_id() + "     Make: " + cl.getMake() + "     Model: "
 									+ cl.getModel() + "     Year: " + cl.getYear() + "     Color: " + cl.getColor()
-									+ "     Condition: " + cl.getCondition() + "     Price: " + cl.getPrice()
+									+ "     Condition: " + cl.getCondition() + "     Price: $" + cl.getPrice()
 									+ "     Status: " + cl.getStatus() + "\n");
 						}
 					}

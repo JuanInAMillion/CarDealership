@@ -59,4 +59,52 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return c;
 	}
 
+	@Override
+	public double makeAPayment(int car_id, double paymentAmount) throws BusinessException {
+		double price = searchBalance(car_id);
+		
+		if (paymentAmount > 0) {
+			price = price - paymentAmount;
+		}else {
+			throw new BusinessException("Enter a positive number");
+		}
+		return price;
+	}
+
+	@Override
+	public double searchBalance(int car_id) throws BusinessException {
+		double price = 0;
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "select price from dealership.carlot WHERE car_id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, car_id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				price = resultSet.getDouble("price");
+			} else {
+				throw new BusinessException("Ther is no car with account id: " + car_id);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		return price;
+
+	}
+
+	@Override
+	public int payThisCar(int car_id, double newBalance) throws BusinessException {
+		int w = 0;
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "update dealership.carlot set price=? where car_id=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setDouble(1, newBalance);
+			preparedStatement.setInt(2, car_id);
+			w = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		return w;
+	}
+
 }

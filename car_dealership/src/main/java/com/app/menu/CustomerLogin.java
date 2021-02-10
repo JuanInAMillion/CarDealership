@@ -7,17 +7,14 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.app.dao.CarDAO;
-import com.app.dao.CustomerCarDAO;
 import com.app.dao.CustomerDAO;
 import com.app.dao.OffersDAO;
 import com.app.dao.impl.CarDAOImpl;
-import com.app.dao.impl.CustomerCarDAOImpl;
 import com.app.dao.impl.CustomerDAOImpl;
 import com.app.dao.impl.OffersDAOImpl;
 import com.app.exception.BusinessException;
 import com.app.model.CarLot;
 import com.app.model.Customer;
-import com.app.model.CustomerCars;
 import com.app.model.Offers;
 
 public class CustomerLogin {
@@ -52,7 +49,6 @@ public class CustomerLogin {
 	// Customer menu after Login
 	public static void customerMenu() {
 		CarDAO dao = new CarDAOImpl();
-		CustomerCarDAO mydao = new CustomerCarDAOImpl();
 		Scanner sc = new Scanner(System.in);
 		int ch = 0;
 		do {
@@ -78,7 +74,7 @@ public class CustomerLogin {
 							// log.info(cl + "\n");
 							log.info("Car ID#: " + cl.getCar_id() + "     Make: " + cl.getMake() + "     Model: "
 									+ cl.getModel() + "     Year: " + cl.getYear() + "     Color: " + cl.getColor()
-									+ "     Condition: " + cl.getCondition() + "     Price: " + cl.getPrice()
+									+ "     Condition: " + cl.getCondition() + "     Price: $" + cl.getPrice()
 									+ "     Status: " + cl.getStatus() + "\n");
 						}
 					}
@@ -118,13 +114,13 @@ public class CustomerLogin {
 				log.info("Enter your Customer ID: ");
 				owner = sc.nextLine();
 				try {
-					List<CarLot> myCarList=dao.getMyCars(owner);
+					List<CarLot> myCarList=dao.viewMyCars(owner);
 					if(myCarList!=null && myCarList.size() > 0) {
 						log.info("\n\nI own " + myCarList.size() + " car(s)....");
 						for(CarLot mc:myCarList) {
 							log.info("Car ID#: " + mc.getCar_id() + "     Make: " + mc.getMake() + "     Model: "
 									+ mc.getModel() + "     Year: " + mc.getYear() + "     Color: " + mc.getColor()
-									+ "     Price: " + mc.getPrice() + "\n");
+									+ "     Balance: $" + mc.getPrice() + "\n");
 						}
 					}
 				} catch (BusinessException e) {
@@ -133,7 +129,22 @@ public class CustomerLogin {
 				
 				break;
 			case 4:
-				log.info("No Payments Yet");
+				int carToPay;
+				double paymentAmount;
+			
+				CustomerDAO makePay = new CustomerDAOImpl();
+			
+				log.info("Enter the Car ID#:");
+				carToPay = Integer.parseInt(sc.nextLine());
+				log.info("How much would you like to pay?");
+				paymentAmount = Double.parseDouble(sc.nextLine());
+				
+				try {
+					double depositBalance = makePay.makeAPayment(carToPay, paymentAmount);
+					makePay.payThisCar(carToPay, depositBalance);
+				} catch (BusinessException e) {
+					log.error(e.getMessage());
+				}
 				break;
 			case 5:
 				log.info("\nThank You For Completing your task, have a nice day!\n");

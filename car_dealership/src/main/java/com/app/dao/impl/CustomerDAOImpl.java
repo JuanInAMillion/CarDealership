@@ -4,27 +4,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import com.app.dao.CustomerDAO;
 import com.app.dao.dbutil.PostgreSqlConnection;
 import com.app.exception.BusinessException;
 import com.app.model.Customer;
-import com.app.model.CustomerCars;
 
-public class CustomerDAOImpl implements CustomerDAO{
+public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public Customer customerVerifyLogin(String email, String password) throws BusinessException {
-Customer customer= null;
-		
-		try ( Connection connection = PostgreSqlConnection.getConnection() ) {
+		Customer customer = null;
+
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
 			String sql = "select * from dealership.customer where email = ? and password = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, email);
-			preparedStatement.setString(2, password);	
+			preparedStatement.setString(2, password);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if( resultSet.next() ) {
+			if (resultSet.next()) {
 				customer = new Customer();
 				customer.setCustomer_id(resultSet.getInt("customer_id"));
 				customer.setFirst_name(resultSet.getString("first_name"));
@@ -32,14 +30,13 @@ Customer customer= null;
 				customer.setDrivers_license(resultSet.getLong("drivers_license"));
 				customer.setEmail(resultSet.getString("email"));
 				customer.setPassword(resultSet.getString("password"));
-			} 
-			else
+			} else
 				throw new BusinessException("Try Again. You either entered a wrong email or password\n");
-				
+
 		} catch (ClassNotFoundException e) {
-			
+
 		} catch (SQLException e) {
-			
+
 		}
 		return customer;
 	}
@@ -47,8 +44,8 @@ Customer customer= null;
 	@Override
 	public int createCustomer(Customer customer) throws BusinessException {
 		int c = 0;
-		try (Connection connection = PostgreSqlConnection.getConnection()){	
-			String sql = "insert into dealership.customer(first_name, last_name, drivers_license, email, password) VALUES(?, ?, ?, ?, ?)";	
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "insert into dealership.customer(first_name, last_name, drivers_license, email, password) VALUES(?, ?, ?, ?, ?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, customer.getFirst_name());
 			preparedStatement.setString(2, customer.getLast_name());
@@ -60,12 +57,6 @@ Customer customer= null;
 			throw new BusinessException("Internal error occured contact SYSADMIN\n");
 		}
 		return c;
-	}
-
-	@Override
-	public List<CustomerCars> viewAllCarsIOwn() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

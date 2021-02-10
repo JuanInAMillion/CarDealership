@@ -142,10 +142,10 @@ public class EmployeeLogin {
 				}
 				break;
 			case 5:
+				// Accept Or reject Offer
 				int acceptedOfferId, rejectedOfferId, CarId;
 				String rejectedOffer, acceptedOffer, carStatus, carOwner;
 
-				// Accept Or reject Offer
 				log.info("Enter The Offer Id Number: ");
 				acceptedOfferId = Integer.parseInt(sc.nextLine());
 				log.info("Enter The Car Id Number: ");

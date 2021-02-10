@@ -13,7 +13,6 @@ import com.app.dao.dbutil.PostgreSqlConnection;
 import com.app.exception.BusinessException;
 
 import com.app.model.CustomerCars;
-import com.app.model.Offers;
 
 public class CustomerCarDAOImpl implements CustomerCarDAO{
 

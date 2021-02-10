@@ -107,4 +107,48 @@ public class CarDAOImpl implements CarDAO {
 		return o;
 	}
 
+	@Override
+	public int updateCarPrice(int car_id, double newPrice) throws BusinessException {
+		int o = 0;
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "update dealership.carlot set price=? where car_id=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setDouble(1, newPrice);
+			preparedStatement.setInt(2, car_id);
+			o = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		return o;
+	}
+	
+	@Override
+	public List<CarLot> getMyCars(String owner) throws BusinessException {
+		List<CarLot> myCarList = new ArrayList<>();
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "select car_id, make, model, year, color, price from dealership.carlot where owner=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, owner);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				CarLot carlot = new CarLot();
+				carlot.setCar_id(resultSet.getInt("car_id"));
+				carlot.setMake(resultSet.getString("make"));
+				carlot.setModel(resultSet.getString("model"));
+				carlot.setYear(resultSet.getInt("year"));
+				carlot.setColor(resultSet.getString("color"));
+				carlot.setPrice(resultSet.getDouble("price"));
+				myCarList.add(carlot);
+			}
+			if (myCarList.size() == 0) {
+				throw new BusinessException("You don't have any cars yet");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println(e);
+			throw new BusinessException("Internal error occured contact SYSADMIN ");
+		}
+		return myCarList;
+
+	}
+
 }

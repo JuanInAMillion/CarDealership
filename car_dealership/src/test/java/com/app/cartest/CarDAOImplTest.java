@@ -41,15 +41,6 @@ public class CarDAOImplTest {
 	}
 
 	@Test
-	public void testAddCarToLot() {
-		try {
-			cardao.addCarToLot(new CarLot("Tesla", "Model T", 2021, "White", "New", 56000));
-		} catch (BusinessException e) {
-			e.getMessage();
-		}
-	}
-
-	@Test
 	public void testRemoveCarFromLot() {
 		try {
 			cardao.removeCarFromLot(100);
@@ -58,22 +49,5 @@ public class CarDAOImplTest {
 		}
 	}
 
-	@Test
-	public void testUpdateCarStatus() {
-		try {
-			cardao.updateCarStatus(103, "Unavailable");
-		} catch (BusinessException e) {
-			e.getMessage();
-		}
-	}
-
-	@Test
-	public void testUpdateCarOwner()  {
-		try {
-			cardao.updateCarOwner(112, "3");
-		} catch (BusinessException e) {
-			e.getMessage();
-		}
-	}
 
 }

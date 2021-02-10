@@ -21,16 +21,16 @@ public class Driver {
 		Employee employee = null;
 		Scanner sc = new Scanner(System.in);
 		
-		log.info("Welcome to Larusso's Car Dealership");
-		log.info("-----------------------");
+		System.out.println("Welcome to Larusso's Car Dealership");
+		System.out.println("-----------------------");
 		int ch = 0;
 		do {
-			log.info("Choose an Option");
-			log.info("=======================");
-			log.info("1)Login");
-			log.info("2)Register");
-			log.info("3)Employee Login");
-			log.info("4)EXIT\n");
+			System.out.println("Choose an Option");
+			System.out.println("=======================");
+			System.out.println("1)Login");
+			System.out.println("2)Register");
+			System.out.println("3)Employee Login");
+			System.out.println("4)EXIT\n");
 			try {
 				ch=Integer.parseInt(sc.nextLine());
 			} catch(NumberFormatException e) {}
@@ -48,9 +48,7 @@ public class Driver {
 			case 4:
 				log.info("Thank you for fisiting Larusso's Car Dealership, have a nice day!\n");
 				break;
-			default:
-				log.info("Invalid menu option. Choose from the given Options.\n");
-				break;
+			
 			}
 		} while(ch != 4);
 		

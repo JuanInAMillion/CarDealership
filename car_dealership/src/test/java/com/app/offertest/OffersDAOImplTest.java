@@ -32,15 +32,6 @@ public class OffersDAOImplTest {
 	}
 	
 	@Test
-	public void testMakeOfferOnCar() {
-		try {
-			offerdao.makeOfferOnCar(new Offers(new Date(), 2, 103, 8000));
-		} catch (BusinessException e) {
-			e.getMessage();
-		}
-	}
-	
-	@Test
 	public void testViewAllOffers() {
 		try {
 			for (Offers offers : offerdao.viewAllOffers()) {
@@ -54,7 +45,7 @@ public class OffersDAOImplTest {
 	@Test
 	public void testAcceptOffer() {
 		try {
-			offerdao.acceptOffer(10005, "Accepted");
+			offerdao.acceptOffer(10000, "Accepted");
 		} catch (BusinessException e) {
 			e.getMessage();
 		}
@@ -63,7 +54,7 @@ public class OffersDAOImplTest {
 	@Test
 	public void testRejectOffer() {
 		try {
-			offerdao.rejectOffer(104, "Rejected");
+			offerdao.rejectOffer(100, "Rejected");
 		} catch (BusinessException e) {
 			e.getMessage();
 		}

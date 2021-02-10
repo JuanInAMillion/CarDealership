@@ -56,12 +56,12 @@ public class CustomerLogin {
 		Scanner sc = new Scanner(System.in);
 		int ch = 0;
 		do {
-			log.info("=======================");
-			log.info("1)View All Cars In The Lot");
-			log.info("2)Make An Offer On A Car");
-			log.info("3)View All My Cars");
-			log.info("4)View My Remaining Payments");
-			log.info("5)EXIT\n");
+			System.out.println("=======================");
+			System.out.println("1)View All Cars In The Lot");
+			System.out.println("2)Make An Offer On A Car");
+			System.out.println("3)View All My Cars");
+			System.out.println("4)Make A Payment");
+			System.out.println("5)EXIT\n");
 			try {
 				ch = Integer.parseInt(sc.nextLine());
 			} catch (NumberFormatException e) {
@@ -79,7 +79,7 @@ public class CustomerLogin {
 							log.info("Car ID#: " + cl.getCar_id() + "     Make: " + cl.getMake() + "     Model: "
 									+ cl.getModel() + "     Year: " + cl.getYear() + "     Color: " + cl.getColor()
 									+ "     Condition: " + cl.getCondition() + "     Price: " + cl.getPrice()
-									+ "     Status: " + cl.getStatus() + "     Owner: " + cl.getOwner() + "\n");
+									+ "     Status: " + cl.getStatus() + "\n");
 						}
 					}
 				} catch (BusinessException e) {
@@ -113,20 +113,27 @@ public class CustomerLogin {
 				break;
 			case 3:
 				// view all cars I own
+				
+				String owner;
+				log.info("Enter your Customer ID: ");
+				owner = sc.nextLine();
 				try {
-					List<CustomerCars> myCarList = mydao.viewMyCars();
-					if (myCarList != null && myCarList.size() != 0) {
-						log.info("\n\nFound " + myCarList.size() + " cars in the CarLot....");
-						for (CustomerCars mcl : myCarList) {
-							log.info(mcl + "\n");
+					List<CarLot> myCarList=dao.getMyCars(owner);
+					if(myCarList!=null && myCarList.size() > 0) {
+						log.info("\n\nI own " + myCarList.size() + " car(s)....");
+						for(CarLot mc:myCarList) {
+							log.info("Car ID#: " + mc.getCar_id() + "     Make: " + mc.getMake() + "     Model: "
+									+ mc.getModel() + "     Year: " + mc.getYear() + "     Color: " + mc.getColor()
+									+ "     Price: " + mc.getPrice() + "\n");
 						}
 					}
 				} catch (BusinessException e) {
 					log.error(e.getMessage());
 				}
+				
 				break;
 			case 4:
-				System.out.println("Make a Payment - Under Construction");
+				log.info("No Payments Yet");
 				break;
 			case 5:
 				log.info("\nThank You For Completing your task, have a nice day!\n");

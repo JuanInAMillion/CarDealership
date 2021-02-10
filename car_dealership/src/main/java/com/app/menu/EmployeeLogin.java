@@ -50,15 +50,15 @@ public class EmployeeLogin {
 		Scanner sc = new Scanner(System.in);
 		int ch = 0;
 		do {
-			log.info("=======================");
-			log.info("1)View All Cars In The Lot");
-			log.info("2)Add A Car To The Lot");
-			log.info("3)Remove Car from Lot");
-			log.info("4)View All Pending Offers");
-			log.info("5)Accept An Offer");
-			log.info("6)Remove All Accepted and Rejected Offers");
-			log.info("7)View All Payments");
-			log.info("8)EXIT\n");
+			System.out.println("=======================");
+			System.out.println("1)View All Cars In The Lot");
+			System.out.println("2)Add A Car To The Lot");
+			System.out.println("3)Remove Car from Lot");
+			System.out.println("4)View All Pending Offers");
+			System.out.println("5)Accept An Offer");
+			System.out.println("6)Remove All Accepted and Rejected Offers");
+			System.out.println("7)View All Payments");
+			System.out.println("8)EXIT\n");
 			try {
 				ch = Integer.parseInt(sc.nextLine());
 			} catch (NumberFormatException e) {
@@ -75,7 +75,7 @@ public class EmployeeLogin {
 							log.info("Car ID#: " + cl.getCar_id() + "     Make: " + cl.getMake() + "     Model: "
 									+ cl.getModel() + "     Year: " + cl.getYear() + "     Color: " + cl.getColor()
 									+ "     Condition: " + cl.getCondition() + "     Price: " + cl.getPrice()
-									+ "     Status: " + cl.getStatus() + "     Owner: " + cl.getOwner() + "\n");
+									+ "     Status: " + cl.getStatus() + "\n");
 						}
 					}
 				} catch (BusinessException e) {
@@ -145,6 +145,7 @@ public class EmployeeLogin {
 				// Accept Or reject Offer
 				int acceptedOfferId, rejectedOfferId, CarId;
 				String rejectedOffer, acceptedOffer, carStatus, carOwner;
+				double newPrice;
 
 				log.info("Enter The Offer Id Number: ");
 				acceptedOfferId = Integer.parseInt(sc.nextLine());
@@ -152,16 +153,21 @@ public class EmployeeLogin {
 				CarId = Integer.parseInt(sc.nextLine());
 				log.info("Enter The New Owners ID number: ");
 				carOwner = sc.nextLine();
+				log.info("Enter The Accepted Offer: ");
+				newPrice = Double.parseDouble(sc.nextLine());
 
 				rejectedOffer = "Rejected";
 				acceptedOffer = "Accepted";
 				carStatus = "Unavailable";
+				
+				
 
 				try {
 					offerdao.rejectOffer(CarId, rejectedOffer); // Rejects all offers for
 					offerdao.acceptOffer(acceptedOfferId, acceptedOffer); // Accepts Offer
 					cardao.updateCarStatus(CarId, carStatus); // Changes availability of the card in the lot
 					cardao.updateCarOwner(CarId, carOwner); // Changes a car's ownership
+					cardao.updateCarPrice(CarId, newPrice); // updates the cost of the car
 					log.info("Accepted an offer for car ID:" + CarId + " from customer " + carOwner + "\n");
 				} catch (BusinessException e) {
 					log.error(e.getMessage());

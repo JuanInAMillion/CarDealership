@@ -10,11 +10,11 @@ import com.app.exception.BusinessException;
 import com.app.model.Customer;
 
 public class CustomerRegistration {
-	private static Logger log=Logger.getLogger("consoleLog.CustomerRegistration");
+	private static Logger log=Logger.getLogger("consoleLog.Registration");
 	//Customer Registration
 		public void customerRegistration(Scanner sc, Customer customer) {
 			String first_name, last_name, email, password;
-			long drivers_license;
+			long drivers_license = 0;
 			
 			CustomerDAO register = new CustomerDAOImpl();
 				
@@ -22,8 +22,13 @@ public class CustomerRegistration {
 			first_name = sc.nextLine();
 			log.info("Enter Your Last Name: ");
 			last_name = sc.nextLine();
+			try {
 			log.info("Enter Your Driver\'s License: ");
 			drivers_license = Long.parseLong(sc.nextLine());
+			} catch (NumberFormatException e) {
+				System.out.println("A Driver\'s License is made up of 9 numbers. Please Try Again\n");
+				return;
+			}
 			log.info("Enter Your Email: ");
 			email = sc.nextLine();
 			log.info("Enter Your Password: ");

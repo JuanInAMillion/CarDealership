@@ -88,4 +88,19 @@ public class OffersDAOImpl implements OffersDAO{
 		return s;
 	}
 
+	@Override
+	public void removeOffers(String pending_offer) throws BusinessException {
+		int r = 0;
+		try (Connection connection = PostgreSqlConnection.getConnection()) {
+			String sql = "delete from dealership.offers where pending_offer=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, pending_offer);
+			r = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println(e);
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+	}
+
 }

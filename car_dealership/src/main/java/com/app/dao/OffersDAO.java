@@ -10,4 +10,5 @@ public interface OffersDAO {
 	public List<Offers> viewAllOffers() throws BusinessException;
 	public int acceptOffer(int offer_id, String pendingStatus) throws BusinessException;
 	public int rejectOffer(int car_id, String pendingStatus) throws BusinessException;
+	public void removeOffers(String pending_offer) throws BusinessException;
 }
